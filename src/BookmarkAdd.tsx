@@ -1,13 +1,16 @@
-import { useState } from 'react'
 import { BsFillBookmarkPlusFill } from 'react-icons/bs'
 
 interface IBookmarkAddProps {
 	word: string
+	storageBookmarks: string[]
+	setStorageBookmarks: React.Dispatch<React.SetStateAction<never[]>>
 }
 
-const BookmarkAdd = ({ word }: IBookmarkAddProps) => {
-	const [storageBookmarks, setStorageBookmarks] = useState([])
-
+const BookmarkAdd = ({
+	word,
+	storageBookmarks,
+	setStorageBookmarks,
+}: IBookmarkAddProps) => {
 	function storeBookmarks() {
 		if (localStorage.getItem('bookmarks') == null) {
 			const bookmarksToStore = [word]

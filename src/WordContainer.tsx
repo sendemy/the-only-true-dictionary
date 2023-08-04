@@ -17,9 +17,16 @@ import WordDefinition from './WordDefinition'
 interface IWordContainerProps {
 	wordData: object
 	handleFetch: (word: string) => void
+	storageBookmarks: string[]
+	setStorageBookmarks: React.Dispatch<React.SetStateAction<never[]>>
 }
 
-const WordContainer = ({ wordData, handleFetch }: IWordContainerProps) => {
+const WordContainer = ({
+	wordData,
+	handleFetch,
+	storageBookmarks,
+	setStorageBookmarks,
+}: IWordContainerProps) => {
 	// console.log('wordDef rendered')
 	// console.log(wordData)
 	// console.log(wordData[0].meanings[0].definitions[0].definition)
@@ -86,7 +93,11 @@ const WordContainer = ({ wordData, handleFetch }: IWordContainerProps) => {
 				<span className='font-semibold text-2xl'>{wordData.list[0].word}</span>
 				<span title='Add to bookmarks' className='font-normal text-2xl'>
 					{/* {wordData.list[0].word} */}
-					<BookmarkAdd word={wordData.list[0].word} />
+					<BookmarkAdd
+						word={wordData.list[0].word}
+						storageBookmarks={storageBookmarks}
+						setStorageBookmarks={setStorageBookmarks}
+					/>
 				</span>
 			</div>
 			<div>

@@ -8,6 +8,8 @@ function App() {
 	const [wordData, setWordData] = useState([])
 	const [value, setValue] = useState('')
 	const [error, setError] = useState('')
+	const [storageBookmarks, setStorageBookmarks] = useState([])
+	const [bookmarksOn, setBookmarksOn] = useState(false)
 
 	const handleFetch = async (word: string) => {
 		const url = `https://mashape-community-urban-dictionary.p.rapidapi.com/define?term=${word}`
@@ -51,14 +53,33 @@ function App() {
 						</div>
 					</div>
 					<InputForm setValue={setValue} handleFetch={handleFetch} />
-					<BookmarkList />
+					<BookmarkList
+						bookmarksOn={bookmarksOn}
+						setBookmarksOn={setBookmarksOn}
+					/>
+				</div>
+				<div>
+					{bookmarksOn &&
+						storageBookmarks.map((bookmark) => (
+							<p
+								className='hover:cursor-pointer active:scale-100 transition ease-in-out hover:scale-105 hover:text-blue-900 duration-200'
+								onClick={() => handleFetch(bookmark)}
+							>
+								{bookmark}
+							</p>
+						))}
 				</div>
 			</div>
 
 			<div className='flex-auto justify-center text-center w-fit basis-1/2'>
 				<div className='w-fit bg-sky-100 mx-auto rounded-2xl py-20 px-4 shadow-lg float-left'>
 					{typeof wordData.list != 'undefined' ? (
-						<WordContainer wordData={wordData} handleFetch={handleFetch} />
+						<WordContainer
+							wordData={wordData}
+							handleFetch={handleFetch}
+							storageBookmarks={storageBookmarks}
+							setStorageBookmarks={setStorageBookmarks}
+						/>
 					) : (
 						<p>{error}</p>
 					)}
